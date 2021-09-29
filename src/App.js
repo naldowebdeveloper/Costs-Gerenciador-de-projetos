@@ -9,6 +9,7 @@ import Container from "./components/layout/Container";
 function App() {
   return (
     <Router>
+
       <div>
         <Link to="/">Home</Link>
         <Link to="/Company">Empresa</Link>
