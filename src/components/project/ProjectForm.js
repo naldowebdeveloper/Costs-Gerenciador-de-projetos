@@ -1,10 +1,30 @@
+import {useEffect, useState} from 'react'
+
 import Input from '../form/Input'
 import Select from '../form/Select'
 import SubmitButton from '../form/SubmitButton'
 
 import styles from './ProjectForm.module.css'
 
-function ProjectForm({btnText}) {
+function ProjectForm({ btnText }) {
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+
+    fetch("https://my-json-server.typicode.com/naldowebdeveloper/db-json/categorias", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'aplication/json',
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setCategories(data)
+      })
+      .catch((err) => console.log(err))
+
+  }, [])
+
   return (
     <form className={styles.form}>
       <Input 
@@ -22,6 +42,7 @@ function ProjectForm({btnText}) {
       <Select 
         name="category_id"
         text="Selecione a categoria" 
+        options={categories}
       />
       <SubmitButton text={btnText} /> 
     </form>
